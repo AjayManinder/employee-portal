@@ -1,0 +1,184 @@
+/* CSS for styling the TableContainer component */
+.TableContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  overflow-y: auto;
+  max-height: 520px;
+}
+
+.searchDropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40%;
+  margin-bottom: 20px;
+}
+
+.searchDropdown select,
+.searchDropdown input,
+.searchDropdown button {
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchDropdown button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.searchDropdown button:hover {
+  background-color: #0056b3;
+}
+
+.container1 {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container1 table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.container1 th,
+.container1 td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.container1 th {
+  background-color: #f2f2f2;
+}
+
+.container1 tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.container1 tr:hover {
+  background-color: #f5f5f5;
+}
+
+.container1 .btn-btn-link {
+  margin-right: 5px;
+  font-weight: bolder;
+  cursor: pointer;
+
+  color: black;
+  border: none;
+  border-radius: 3px;
+}
+
+.container1 .btn-btn-link:hover {
+  background-color: #d3d3d3;
+}
+
+.container1 .actions {
+  display: flex;
+  align-items: center;
+}
+
+.container1 .edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #fa1818;
+  color: white;
+  cursor: pointer;
+}
+
+.container1 .edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.container1 .add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.container1 .add-btn:hover {
+  background-color: #218838;
+}
+
+.container1 .tab-content {
+  border: 1px solid #dee2e6;
+  padding: 15px;
+  border-radius: 0.25rem;
+  margin-top: 15px;
+}
+
+.container1 .content-tab {
+  display: flex;
+  flex-direction: column;
+}
+
+.container1 .nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.container1 .nav-link {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.container1 .nav-link.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+svg {
+  margin-right: 5px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin-right: 5px;
+  cursor: pointer;
+  color: black;
+  font-weight: bolder;
+  padding: 5px 10px;
+  background-color: #f3f4f5;
+  border: none;
+  border-radius: 3px;
+}
+
+.pagination button:hover {
+  background-color: #85919e;
+}
+
+.pagination span {
+  margin-right: 5px;
+  font-weight: bold;
+}
