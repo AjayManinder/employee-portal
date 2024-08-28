@@ -6,9 +6,9 @@ import Table from "./pages/Table";
 import Header from "./Header/header";
 import Login from "./pages/Login";
 import Footer from "./Footer/footer";
-import UsersTable from "./Components/StudentTable/userTable/usersTable";
-import StudentInfo from "./Components/StudentTable/studentInfo/studentInfo";
-import SubjectRegistration from "./Components/StudentTable/subjectsRegistration/SubjectsRegistration";
+import UsersTable from "./Components/EmployeeTable/userTable/usersTable";
+import EmployeeInfo from "./Components/EmployeeTable/EmployeeInfo/EmployeeInfo"
+import SubjectRegistration from "./Components/EmployeeTable/subjectsRegistration/SubjectsRegistration";
 import "./App.css";
 
 export const Context = React.createContext();
@@ -41,8 +41,8 @@ const App = () => {
               element={authenticated ? <UsersTable /> : <Login />}
             />
             <Route
-              path="/studentInfo"
-              element={authenticated ? <StudentInfo /> : <Login />}
+              path="/employeeInfo"
+              element={authenticated ? <EmployeeInfo /> : <Login />}
             />
              <Route
               path="/subjectRegistration"

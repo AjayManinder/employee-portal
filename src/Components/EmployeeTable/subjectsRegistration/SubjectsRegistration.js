@@ -6,7 +6,7 @@ import { Context } from "../../../App";
 const SubjectRegistration = () => {
   const [subjects, setSubjects] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [studentSubjects, setStudentSubjects] = useState([]);
+  const [employeeSubjects, setEmployeeSubjects] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [userDetails, setUserDetails] = useContext(Context);
 
@@ -19,41 +19,41 @@ const SubjectRegistration = () => {
         console.error('Error fetching subjects:', error);
       });
 
-    axiosInstance.get(`/students/${userDetails?.student?._id}`)
+    axiosInstance.get(`/employees/${userDetails?.employee?._id}`)
       .then(response => {
-        setStudentSubjects(response.data.subjectIds);
+        setEmployeeSubjects(response.data.subjectIds);
       })
       .catch(error => {
-        console.error('Error fetching student subjects:', error);
+        console.error('Error fetching employee subjects:', error);
       });
   }, [userDetails]); 
   
 
   const handleRegisterSubject = async (subjectId) => {
     try {
-      const rollNo = userDetails?.student?.rollNo;
-      if (!rollNo) {
-        // Handle case where rollNo is not available
+      const empNo = userDetails?.employee?.empNo;
+      if (!empNo) {
+        // Handle case where empNo is not available
         return;
       }
   
-      // Fetch the current list of student subjects
-      const response = await axiosInstance.get(`/students/${rollNo}`);
+      // Fetch the current list of employee subjects
+      const response = await axiosInstance.get(`/employees/${empNo}`);
       const currentSubjects = response.data.subjectIds;
   
       console.log('Current Subjects:', currentSubjects);
   
-      // Check if the subject is already present in the student's subjects
+      // Check if the subject is already present in the employee's subjects
       if (currentSubjects.includes(subjectId)) {
         throw new Error('Subject already registered!');
       }
 
   
-      // Make a POST request to add the subject to the student's record
-      await axiosInstance.post(`/students/${rollNo}/subjects`, { subjectId });
+      // Make a POST request to add the subject to the employee's record
+      await axiosInstance.post(`/employees/${empNo}/subjects`, { subjectId });
   
-      // Update the list of student subjects
-      setStudentSubjects([...currentSubjects, subjectId]);
+      // Update the list of employee subjects
+      setEmployeeSubjects([...currentSubjects, subjectId]);
   
       alert('Subject added successfully!');
     } catch (error) {

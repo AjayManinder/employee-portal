@@ -1,22 +1,22 @@
-// StudentTable.js
+// EmployeeTable.js
 import React, { useState, useEffect, useContext } from "react";
 import axiosInstance from "../../axiosConfig";
-// import AddStudent from './addStudent';
-import EditStudent from "./editStudent";
-import DeleteStudent from "./deleteStudent";
+// import AddEmployee from './addEmployee';
+import EditEmployee from "./editEmployee";
+import DeleteEmployee from "./deleteEmployee";
 import { FaEdit } from "react-icons/fa";
-import "./studentTable.css";
+import "./employeeTable.css";
 import TableYearCrud from "./yearTab-Table/tableYearCrud";
 import TableSubjectCrud from "./subjectTab-Table/tableSubject-Crud";
 import { Context } from "../../App";
 
-const StudentTable = () => {
+const EmployeeTable = () => {
   // useState Hook
-  const [students, setStudents] = useState([]);
-  const [fetchedStudents, setFetchedStudents] = useState([]);
-  const [searchField, setSearchField] = useState("rollNo");
+  const [employees, setEmployees] = useState([]);
+  const [fetchedEmployees, setFetchedEmployees] = useState([]);
+  const [searchField, setSearchField] = useState("empNo");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [openDetails, setOpenDetails] = useState({});
   const [activeTab, setActiveTab] = useState("yearSemIds");
@@ -25,7 +25,7 @@ const StudentTable = () => {
   // eslint-disable-next-line no-unused-vars
   const [editedSubject, setEditedSubject] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage] = useState(5);
+  const [employeesPerPage] = useState(5);
   // eslint-disable-next-line no-unused-vars
   const [userDetails, setUserDetails] = useContext(Context);
   
@@ -33,116 +33,116 @@ const StudentTable = () => {
     setActiveTab(tab);
   };
 
-  const toggleDetails = (rollNo) => {
+  const toggleDetails = (empNo) => {
     setOpenDetails((prevOpenDetails) => ({
       ...prevOpenDetails,
-      [rollNo]: !prevOpenDetails[rollNo],
+      [empNo]: !prevOpenDetails[empNo],
     }));
   };
-  const fetchStudents = async () => {
+  const fetchEmployees = async () => {
     try {
-      const response = await axiosInstance.get("/students"); // Adjust the route based on your backend
-      setFetchedStudents(response.data);
+      const response = await axiosInstance.get("/employees"); // Adjust the route based on your backend
+      setFetchedEmployees(response.data);
     } catch (error) {
-      console.error("Error fetching students:", error);
+      console.error("Error fetching employees:", error);
     }
   };
   // useEffect Hook
 
   useEffect(() => {
-    fetchStudents();
+    fetchEmployees();
   }, []);
 
   // useEffect Hook
   useEffect(() => {
-    const indexOfLastStudent = currentPage * studentsPerPage;
-    const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
-    setStudents(fetchedStudents.slice(indexOfFirstStudent, indexOfLastStudent));
-  }, [currentPage, fetchedStudents, studentsPerPage]);
+    const indexOfLastEmployee = currentPage * employeesPerPage;
+    const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+    setEmployees(fetchedEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee));
+  }, [currentPage, fetchedEmployees, employeesPerPage]);
 
-  // const addStudent = (student) => {
-  //   setStudents([...students, student]);
+  // const addEmployee = (employee) => {
+  //   setEmployees([...employees, employee]);
   // };
 
-  const updateStudentList = (updatedStudent) => {
-    const updatedStudents = students.map((student) => {
-      if (student.rollNo === updatedStudent.rollNo) {
-        return updatedStudent;
+  const updateEmployeeList = (updatedEmployee) => {
+    const updatedEmployees = employees.map((employee) => {
+      if (employee.empNo === updatedEmployee.empNo) {
+        return updatedEmployee;
       }
-      return student;
+      return employee;
     });
-    setStudents(updatedStudents);
+    setEmployees(updatedEmployees);
   };
 
   const handleYearSemesterEdit = (editedData) => {
     setEditedYearSemester(editedData);
-    updateStudentListYearSemester(editedData);
-    //  await fetchStudents();
+    updateEmployeeListYearSemester(editedData);
+    //  await fetchEmployees();
   };
 
-  const updateStudentListYearSemester = (editedData) => {
-    const updatedStudents = students.map((student) => {
+  const updateEmployeeListYearSemester = (editedData) => {
+    const updatedEmployees = employees.map((employee) => {
       if (
-        student.yearSemIds &&
-        student.yearSemIds[0] &&
-        editedData._id === student.yearSemIds[0]._id
+        employee.yearSemIds &&
+        employee.yearSemIds[0] &&
+        editedData._id === employee.yearSemIds[0]._id
       ) {
         return {
-          ...student,
+          ...employee,
           yearSemIds: [
             {
-              ...student.yearSemIds[0],
+              ...employee.yearSemIds[0],
               ...editedData,
             },
           ],
         };
       }
-      return student;
+      return employee;
     });
-    setStudents(updatedStudents);
+    setEmployees(updatedEmployees);
   };
 
   const handleSubjectEdit = (editedSubjectData) => {
     setEditedSubject(editedSubjectData);
-    updateStudentListSubject(editedSubjectData);
-    //  await fetchStudents();
+    updateEmployeeListSubject(editedSubjectData);
+    //  await fetchEmployees();
   };
 
-  const updateStudentListSubject = (editedSubjectData) => {
-    const updatedStudents = students.map((student) => {
+  const updateEmployeeListSubject = (editedSubjectData) => {
+    const updatedEmployees = employees.map((employee) => {
       if (
-        student.subjectIds &&
-        student.subjectIds[0] &&
-        editedSubjectData._id === student.subjectIds[0]._id
+        employee.subjectIds &&
+        employee.subjectIds[0] &&
+        editedSubjectData._id === employee.subjectIds[0]._id
       ) {
         return {
-          ...student,
+          ...employee,
           subjectIds: [
             {
-              ...student.subjectIds[0],
+              ...employee.subjectIds[0],
               ...editedSubjectData,
             },
           ],
         };
       }
-      return student;
+      return employee;
     });
-    setStudents(updatedStudents);
+    setEmployees(updatedEmployees);
   };
 
-  const editStudent = (student) => {
-    setSelectedStudent(student);
+  const editEmployee = (employee) => {
+    setSelectedEmployee(employee);
   };
 
   const closeModal = () => {
-    setSelectedStudent(null);
+    setSelectedEmployee(null);
   };
 
-  const deleteStudent = (rollNo) => {
-    const updatedStudents = students.filter(
-      (student) => student.rollNo !== rollNo
+  const deleteEmployee = (empNo) => {
+    const updatedEmployees = employees.filter(
+      (employee) => employee.empNo !== empNo
     );
-    setStudents(updatedStudents);
+    setEmployees(updatedEmployees);
   };
 
   const handleSearch = () => {
@@ -150,18 +150,18 @@ const StudentTable = () => {
       // If search term or search field is empty, reset the search
       resetSearch();
     } else {
-      const filteredStudents = fetchedStudents.filter((student) => {
-        if (searchField === "rollNo") {
-          return student.rollNo.toString().includes(searchTerm);
+      const filteredEmployees = fetchedEmployees.filter((employee) => {
+        if (searchField === "empNo") {
+          return employee.empNo.toString().includes(searchTerm);
         } else if (searchField === "name") {
-          return student.name.toLowerCase().includes(searchTerm.toLowerCase());
+          return employee.name.toLowerCase().includes(searchTerm.toLowerCase());
         } else if (searchField === "percentage") {
-          return student.percentage.toString().includes(searchTerm);
+          return employee.percentage.toString().includes(searchTerm);
         }
         return false;
       });
 
-      setStudents(filteredStudents);
+      setEmployees(filteredEmployees);
       setIsSearchActive(true);
     }
   };
@@ -171,15 +171,15 @@ const StudentTable = () => {
     setIsSearchActive(false);
     setCurrentPage(1);
 
-    // Set students to the first page of fetchedStudents
-    setStudents(fetchedStudents.slice(0, studentsPerPage));
+    // Set employees to the first page of fetchedEmployees
+    setEmployees(fetchedEmployees.slice(0, employeesPerPage));
   };
 
   return (
     <div className="TableContainer">
       <div className="searchDropdown">
         <select onChange={(e) => setSearchField(e.target.value)}>
-          <option value="rollNo">Roll No</option>
+          <option value="empNo">Roll No</option>
           <option value="name">Name</option>
           <option value="percentage">Percentage</option>
         </select>
@@ -206,40 +206,40 @@ const StudentTable = () => {
             </tr>
           </thead>
           <tbody>
-            {students.map((student) => (
-              <React.Fragment key={student.rollNo}>
+            {employees.map((employee) => (
+              <React.Fragment key={employee.empNo}>
                 <tr>
                   <td>
                     <button
                       className="btn-btn-link"
                       type="button"
-                      onClick={() => toggleDetails(student.rollNo)}
+                      onClick={() => toggleDetails(employee.empNo)}
                     >
-                      {openDetails[student.rollNo] ? "^" : ">"}
+                      {openDetails[employee.empNo] ? "^" : ">"}
                     </button>
-                    {student.rollNo}
+                    {employee.empNo}
                   </td>
-                  <td>{student.name}</td>
-                  <td>{student.percentage}</td>
-                  <td>{student.branch}</td>
+                  <td>{employee.name}</td>
+                  <td>{employee.percentage}</td>
+                  <td>{employee.branch}</td>
                   {userDetails && userDetails.role_id.roleName === "admin" && (
                     <>
                       <td className="actions">
                         <button
                           className="edit-btn"
-                          onClick={() => editStudent(student)}
+                          onClick={() => editEmployee(employee)}
                         >
                           <FaEdit />
                         </button>
-                        <DeleteStudent
-                          rollNo={student.rollNo}
-                          deleteStudent={deleteStudent}
+                        <DeleteEmployee
+                          empNo={employee.empNo}
+                          deleteEmployee={deleteEmployee}
                         />
                       </td>
                     </>
                   )}
                 </tr>
-                {openDetails[student.rollNo] && (
+                {openDetails[employee.empNo] && (
                   <tr>
                     <td colSpan="6">
                       <div>
@@ -265,17 +265,17 @@ const StudentTable = () => {
                           {activeTab === "yearSemIds" && (
                             <div className="content-tab">
                               {/* <div>
-                                <strong>Year:</strong> {student.yearSemIds.length > 0 ? student.yearSemIds[0].year : 'N/A'}
+                                <strong>Year:</strong> {employee.yearSemIds.length > 0 ? employee.yearSemIds[0].year : 'N/A'}
                               </div>
                               <div>
-                                <strong>Semester:</strong> {student.yearSemIds.length > 0 ? student.yearSemIds[0].sem : 'N/A'}
+                                <strong>Semester:</strong> {employee.yearSemIds.length > 0 ? employee.yearSemIds[0].sem : 'N/A'}
                               </div>
                               <div>
-                                <strong>Status:</strong> {student.yearSemIds.length > 0 ? student.yearSemIds[0].status : 'N/A'}
+                                <strong>Status:</strong> {employee.yearSemIds.length > 0 ? employee.yearSemIds[0].status : 'N/A'}
                               </div> */}
 
                               <TableYearCrud
-                                data={student.yearSemIds[0]}
+                                data={employee.yearSemIds[0]}
                                 onEdit={handleYearSemesterEdit}
                               />
                             </div>
@@ -283,22 +283,22 @@ const StudentTable = () => {
                           {activeTab === "subjectIds" && (
                             <div>
                               {/* <div>
-                                <strong>Subject ID:</strong> {student.subjectIds.length > 0 ? student.subjectIds[0].subID : 'N/A'}
+                                <strong>Subject ID:</strong> {employee.subjectIds.length > 0 ? employee.subjectIds[0].subID : 'N/A'}
                               </div>
                               <div>
-                                <strong>Subject Name:</strong> {student.subjectIds.length > 0 ? student.subjectIds[0].name : 'N/A'}
+                                <strong>Subject Name:</strong> {employee.subjectIds.length > 0 ? employee.subjectIds[0].name : 'N/A'}
                               </div>
                               <div>
-                                <strong>Subject Description:</strong> {student.subjectIds.length > 0 ? student.subjectIds[0].description : 'N/A'}
+                                <strong>Subject Description:</strong> {employee.subjectIds.length > 0 ? employee.subjectIds[0].description : 'N/A'}
                               </div> */}
                               <TableSubjectCrud
-                                data={student.subjectIds[0]}
+                                data={employee.subjectIds[0]}
                                 onEditSubject={handleSubjectEdit}
                               />
                               {/* <div>
                                 <strong>Topics:</strong> {
-                                  student.subjectIds.length > 0
-                                    ? student.subjectIds
+                                  employee.subjectIds.length > 0
+                                    ? employee.subjectIds
                                       .filter(item => item && item.topics) // Remove items without status
                                       .map(item => item.topics)
                                       .join(', ')
@@ -318,12 +318,12 @@ const StudentTable = () => {
         </table>
       </div>
       {/*{userDetails && userDetails.role_id.roleName === 'admin' && (
-      <AddStudent addStudent={addStudent} />
+      <AddEmployee addEmployee={addEmployee} />
       )} */}
-      {selectedStudent && (
-        <EditStudent
-          studentData={selectedStudent}
-          updateStudent={updateStudentList}
+      {selectedEmployee && (
+        <EditEmployee
+          employeeData={selectedEmployee}
+          updateEmployee={updateEmployeeList}
           closeModal={closeModal}
         />
       )}
@@ -338,7 +338,7 @@ const StudentTable = () => {
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
           disabled={
-            currentPage === Math.ceil(fetchedStudents.length / studentsPerPage)
+            currentPage === Math.ceil(fetchedEmployees.length / employeesPerPage)
           }
         >
           {">"}
@@ -348,4 +348,4 @@ const StudentTable = () => {
   );
 };
 
-export default StudentTable;
+export default EmployeeTable;
