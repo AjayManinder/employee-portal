@@ -56,7 +56,7 @@
   width: 100%;
   height: 500px;
   background-color: rgb(215, 243, 243);
-  background-image: url("https://www.timeshighereducation.com/student/sites/default/files/inline-images/Long_Room_Old_Library_0.JPG");
+  background-image: url("https://www.timeshighereducation.com/employee/sites/default/files/inline-images/Long_Room_Old_Library_0.JPG");
   background-position: cover;
   /* top: 50%; */
   /* left: 50%; */
@@ -158,7 +158,7 @@
 
 .container2-text {
   display: flex;
-  background-image: url("https://www.timeshighereducation.com/student/sites/default/files/inline-images/Long_Room_Old_Library_0.JPG");
+  background-image: url("https://www.timeshighereducation.com/employee/sites/default/files/inline-images/Long_Room_Old_Library_0.JPG");
   background-position: cover;
   height: 100%;
   width: 100%;

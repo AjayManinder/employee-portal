@@ -1,10 +1,10 @@
 import React from "react";
-import StudentTable from "../Components/StudentTable/studentTable";
+import EmployeeTable from "../Components/EmployeeTable/EmployeeTable";
 
 const Table = () => {
   return (
     <div>
-      <StudentTable />
+      <EmployeeTable />
     </div>
   );
 };

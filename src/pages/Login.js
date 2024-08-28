@@ -77,38 +77,44 @@ const Login = ({ setAuthenticated }) => {
       if (user) {
         //If a user is found, it extracts the role_id and user_id from the user object.
         const { role_id, user_id } = user;
+        console.log("User role ID:", role_id);
+        console.log("User ID:", user_id);
         console.log("User details:", user);
 
         // Extract roleName from role_id object
         const roleName = role_id?.roleName || "";
+        console.log("Role name:", roleName);
 
         // Set authentication state and user details
         // It sets the authentication state to true using the setAuthenticated function, indicating that the user has been successfully authenticated.
         setAuthenticated(true);
 
-        // This if statement checks if the role of the user (roleName) is equal to "student". If so, it means that the user logging in has the role of a student.
-        if (roleName === "student") {
+        // This if statement checks if the role of the user (roleName) is equal to "employee". If so, it means that the user logging in has the role of a employee.
+        if (roleName === "employee") {
+          console.log("Fetching employee details for user ID:", user_id);
           console.log("role name", roleName);
-          // It's assumed that this endpoint retrieves information about the student associated with the provided user_id.
-          const studentResponse = await axiosInstance.get(
-            `/students?user_id=${user_id}`
+          // It's assumed that this endpoint retrieves information about the employee associated with the provided user_id.
+          const employeeResponse = await axiosInstance.get(
+            `/employees?user_id=${user_id}`
           );
-          // It assumes that the server returns an array of student objects, and since we're fetching details for a specific user, there should be only one student object corresponding to that user.
-          const student = studentResponse.data[0]; // Assuming there is only one student per user
-
-          if (student) {
-            // Update state with student name
-            // It updates the userDetails state by merging the existing details (prevDetails) with the student's name extracted from the student object.
+          console.log("Employee response:", employeeResponse.data);
+          // It assumes that the server returns an array of employee objects, and since we're fetching details for a specific user, there should be only one employee object corresponding to that user.
+          const employee = employeeResponse.data[0]; // Assuming there is only one employee per user
+          console.log("Employee details:", employee);
+          if (employee) {
+            // Update state with employee name
+            // It updates the userDetails state by merging the existing details (prevDetails) with the employee's name extracted from the employee object.
             setUserDetails((prevDetails) => ({
               ...prevDetails,
-              name: student.name,
+              name: employee.name,
             }));
           }
 
           // Redirect based on the role
           setLoading(true);
-          navigate("/studentInfo");
-        } else if (roleName === "teacher") {
+          navigate("/employeeInfo");
+          console.log("Navigating to /employeeInfo");
+        } else if (roleName === "recruiter") {
           navigate("/table");
         } else if (roleName === "admin") {
           navigate("/table");
@@ -146,7 +152,7 @@ const Login = ({ setAuthenticated }) => {
             className="input-field"
             type="text"
             value={email}
-            placeholder="Enter e-mail Eg: student1@gmail.com"
+             placeholder="Enter password Eg: Abc1@123"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>

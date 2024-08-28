@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./addStudent.css";
+import "./addEmployee.css";
 import axiosInstance from "../../../axiosConfig";
 
-const AddStudent = ({ addStudent }) => {
-  const [newStudent, setNewStudent] = useState({
-    rollNo: "",
+const AddEmployee = ({ addEmployee }) => {
+  const [newEmployee, setNewEmployee] = useState({
+    empNo: "",
     name: "",
     percentage: "",
     branch: "",
@@ -12,45 +12,45 @@ const AddStudent = ({ addStudent }) => {
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const handleAddStudent = async () => {
+  const handleAddEmployee = async () => {
     try {
       if (
-        !newStudent.rollNo ||
-        !newStudent.name ||
-        !newStudent.percentage ||
-        !newStudent.branch
+        !newEmployee.empNo ||
+        !newEmployee.name ||
+        !newEmployee.percentage ||
+        !newEmployee.branch
       ) {
         setError("All fields are required");
         return;
       }
 
-      const response = await axiosInstance.post("/students", newStudent);
-      addStudent(response.data);
+      const response = await axiosInstance.post("/employees", newEmployee);
+      addEmployee(response.data);
       setShowModal(false);
-      setNewStudent({
+      setNewEmployee({
         // Clear the fields after successful addition
-        rollNo: "",
+        empNo: "",
         name: "",
         percentage: "",
         branch: "",
       });
       setError(""); // Reset error message
     } catch (error) {
-      setError("Error adding student");
-      console.error("Error adding student:", error);
+      setError("Error adding employee");
+      console.error("Error adding employee:", error);
     }
   };
 
   const handleModalClose = () => {
     setShowModal(false);
     setError("");
-    setNewStudent({ rollNo: "", name: "", percentage: "", branch: "" });
+    setNewEmployee({ empNo: "", name: "", percentage: "", branch: "" });
   };
 
   return (
     <div>
       <button className="buttonModal" onClick={() => setShowModal(true)}>
-        Add Student
+        Add Employee
       </button>
 
       {showModal && (
@@ -59,45 +59,45 @@ const AddStudent = ({ addStudent }) => {
             <span className="close" onClick={handleModalClose}>
               &times;
             </span>
-            <h2>Add Student</h2>
+            <h2>Add Employee</h2>
             <label>Roll Number</label>
             <input
               type="text"
-              value={newStudent.rollNo}
+              value={newEmployee.empNo}
               onChange={(e) =>
-                setNewStudent({ ...newStudent, rollNo: e.target.value })
+                setNewEmployee({ ...newEmployee, empNo: e.target.value })
               }
               placeholder="Roll No"
             />
             <label>Name</label>
             <input
               type="text"
-              value={newStudent.name}
+              value={newEmployee.name}
               onChange={(e) =>
-                setNewStudent({ ...newStudent, name: e.target.value })
+                setNewEmployee({ ...newEmployee, name: e.target.value })
               }
               placeholder="Name"
             />
             <label>Percentage</label>
             <input
               type="text"
-              value={newStudent.percentage}
+              value={newEmployee.percentage}
               onChange={(e) =>
-                setNewStudent({ ...newStudent, percentage: e.target.value })
+                setNewEmployee({ ...newEmployee, percentage: e.target.value })
               }
               placeholder="Percentage"
             />
             <label>Branch</label>
             <input
               type="text"
-              value={newStudent.branch}
+              value={newEmployee.branch}
               onChange={(e) =>
-                setNewStudent({ ...newStudent, branch: e.target.value })
+                setNewEmployee({ ...newEmployee, branch: e.target.value })
               }
               placeholder="Branch"
             />
             {/* Other input fields for name, percentage, branch */}
-            <button onClick={handleAddStudent}>Add</button>
+            <button onClick={handleAddEmployee}>Add</button>
             {error && <p>{error}</p>}
           </div>
         </div>
@@ -106,4 +106,4 @@ const AddStudent = ({ addStudent }) => {
   );
 };
 
-export default AddStudent;
+export default AddEmployee;

@@ -8,7 +8,7 @@ const CreateUserForm = () => {
     email: "",
     password: "",
     role_id: "",
-    rollNo: "",
+    empNo: "",
     name: "",
     percentage: "",
     branch: "",
@@ -56,7 +56,7 @@ const CreateUserForm = () => {
       errors[name] = `Please enter ${
         name === "user_id"
           ? "User ID"
-          : name === "rollNo"
+          : name === "empNo"
           ? "Roll Number"
           : name
       }.`;
@@ -77,7 +77,7 @@ const CreateUserForm = () => {
       ) {
         errors[name] = "Email already exists.";
       }
-      // if (name === 'rollNo' && formData.students.some(student => student.rollNo === value)) {
+      // if (name === 'empNo' && formData.employees.some(employee => employee.empNo === value)) {
       //   errors[name] = 'Roll Number already exists.';
       // }
     }
@@ -119,8 +119,8 @@ const CreateUserForm = () => {
 
       let responseData;
       if (formData.role_id === "65b1e345fef8a8c6c613ad76") {
-        responseData = await axiosInstance.post("/students", {
-          rollNo: formData.rollNo,
+        responseData = await axiosInstance.post("/employees", {
+          empNo: formData.empNo,
           name: formData.name,
           percentage: formData.percentage,
           branch: formData.branch,
@@ -129,9 +129,9 @@ const CreateUserForm = () => {
           userId: newUserResponse.data.userId,
         });
       } else if (formData.role_id === "65b1e320fef8a8c6c613ad74") {
-        responseData = await axiosInstance.post("/teachers", {
-          teacherID: formData.teacherID,
-          teacherName: formData.teacherName,
+        responseData = await axiosInstance.post("/recruiters", {
+          recruiterID: formData.recruiterID,
+          recruiterName: formData.recruiterName,
           subjectIds: formData.selectedSubjects,
           user_id: newUserResponse.data.userId,
         });
@@ -150,12 +150,12 @@ const CreateUserForm = () => {
         email: "",
         password: "",
         role_id: "",
-        rollNo: "",
+        empNo: "",
         name: "",
         percentage: "",
         branch: "",
-        teacherID: "",
-        teacherName: "",
+        recruiterID: "",
+        recruiterName: "",
         selectedSubjects: [],
         selectedYearSem: "",
         roles: formData.roles,
@@ -172,11 +172,11 @@ const CreateUserForm = () => {
       alert("User and data created successfully.");
     } catch (error) {
       console.error("Error creating user or data:", error);
-      // If there was an error creating the teacher, delete the user record
+      // If there was an error creating the recruiter, delete the user record
       if (
         error.response &&
         error.response.status === 400 &&
-        error.response.data.message === "Invalid teacher details"
+        error.response.data.message === "Invalid recruiter details"
       ) {
         console.log("Deleting user record...");
         await axiosInstance.delete(`/users/${newUserResponse.data.userId}`);
@@ -246,13 +246,13 @@ const CreateUserForm = () => {
             Roll No :
             <input
               type="number"
-              name="rollNo"
-              value={formData.rollNo}
+              name="empNo"
+              value={formData.empNo}
               onChange={handleChange}
               placeholder="Roll No"
             />
-            {formData.errors.rollNo && (
-              <span className="error">{formData.errors.rollNo}</span>
+            {formData.errors.empNo && (
+              <span className="error">{formData.errors.empNo}</span>
             )}
           </label>
           <label>
@@ -335,23 +335,23 @@ const CreateUserForm = () => {
       {formData.role_id === "65b1e320fef8a8c6c613ad74" && (
         <>
           <label>
-            Teacher ID:
+            Recruiter ID:
             <input
               type="string"
-              name="teacherID"
-              value={formData.teacherID}
+              name="recruiterID"
+              value={formData.recruiterID}
               onChange={handleChange}
-              placeholder="Teacher ID"
+              placeholder="Recruiter ID"
             />
           </label>
           <label>
-            Teacher Name:
+            Recruiter Name:
             <input
               type="string"
-              name="teacherName"
-              value={formData.teacherName}
+              name="recruiterName"
+              value={formData.recruiterName}
               onChange={handleChange}
-              placeholder="Teacher Name"
+              placeholder="Recruiter Name"
             />
           </label>
           <select
