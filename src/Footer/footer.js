@@ -11,23 +11,23 @@ const Footer = () => {
           </div>
           <div>Monday - Friday</div>
           <div>8:00 am - 5:00 pm</div>
-          {/* <p>Student Portal</p> */}
+          {/* <p>Employee Portal</p> */}
         </div>
         <div className="right-section">
           <div className="right-section-div-head">
             <strong>Contact</strong>
           </div>
           <div>
-            <strong>Email: </strong>collegeportal@gmail.com
+            <strong>Email: </strong>employeeportal@gmail.com
           </div>
           <div>
             <strong>Phone:</strong>999-888-7766
           </div>
-          {/* <p>Student Portal</p> */}
+          {/* <p>Employee Portal</p> */}
         </div>
       </div>
       <div className="main-container">
-        <div>© College Portal. All rights reserved.</div>
+        <div>© Employee Portal. All rights reserved.</div>
       </div>
     </div>
   );

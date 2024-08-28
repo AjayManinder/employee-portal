@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="homeContainer">
       <div className="text-overlay">
-        <h1>Welcome to College Portal</h1>
+        <h1>Welcome to Employee Portal</h1>
         <p>
           Innovative school that offers a high-quality education while remaining
           one of the most affordable universities in the country.
@@ -45,13 +45,13 @@ const Home = () => {
           <h3> Who We Are</h3>
           <h5>
             The University believes its responsibility is to enrich each
-            student’s perspective through a cumulative experience that starts
+            employee’s perspective through a cumulative experience that starts
             with academic rigor and integrates applied learning and
             servant-leadership opportunities. Our model of continuous learning
-            allows each student to find and fulfill his or her own sense of
-            purpose. By engaging students with multiple sources of learning and
+            allows each employee to find and fulfill his or her own sense of
+            purpose. By engaging employees with multiple sources of learning and
             creating a dynamic environment that encourages individuals to find
-            their passions and reach beyond themselves, UCM prepares students by
+            their passions and reach beyond themselves, UCM prepares employees by
             giving them knowledge and experiences that broaden and deepen their
             education so they may flourish in a world of accelerated change.
           </h5>
@@ -73,7 +73,7 @@ const Home = () => {
           </div>
           <div className="item2">
             <div className="container2-text">
-              Student <br /> Services
+              Employee <br /> Services
             </div>
           </div>
           <div className="item2">
@@ -84,10 +84,10 @@ const Home = () => {
           </div>
         </div>
         <div className="afterHomeView-containerText">
-          <h2>International Student Services</h2>
+          <h2>International Employee Services</h2>
           <h5>
             We are committed to providing a safe and welcoming environment for
-            all international students. Our International Student Services (ISS)
+            all international employees. Our International Employee Services (ISS)
             team is here to help you with everything from applying for a visa to
             finding housing and getting involved on campus.
             <br />
@@ -100,7 +100,7 @@ const Home = () => {
         <div className="container3">
           <div className="item3 left-item3">
             <img
-              src="https://www.volstate.edu/sites/default/files/styles/mt_fli_image/public/2017-09/VS-Students-Campus_8-31-177.jpg?itok=jDVEKlzi"
+              src="https://www.volstate.edu/sites/default/files/styles/mt_fli_image/public/2017-09/VS-Employees-Campus_8-31-177.jpg?itok=jDVEKlzi"
               alt="image1"
               className="container3-image"
             />
@@ -108,13 +108,13 @@ const Home = () => {
           <div className="item3 right-item3">
             <h2>Campus Life</h2>
             <h6>
-              Our campus is a place for students to live, learn and grow. We
-              offer a variety of programs and services to help students succeed
+              Our campus is a place for employees to live, learn and grow. We
+              offer a variety of programs and services to help employees succeed
               in their education and beyond.
               <br />
               <br /> Campus life here is active and creative, fun and fantastic.
               You’ll literally have hundreds of opportunities to get
-              involved—from student organizations to academic teams, to
+              involved—from employee organizations to academic teams, to
               sororities and fraternities, athletics to intramural and club
               sports.
             </h6>
@@ -125,7 +125,7 @@ const Home = () => {
           <div className="item3 right-item3">
             <h2>Our Mission, Vision, and Strategic Plan</h2>
             <h6>
-              Mission & Vision - disseminates knowledge that transforms students
+              Mission & Vision - disseminates knowledge that transforms employees
               into leaders who possess the aptitudes, skills and confidence to
               succeed.
               <br />
@@ -177,7 +177,7 @@ const Home = () => {
             all of public universities and more than double the state benchmark.
             <br />
             <br />
-            Here we strive to give you the student services, resources and
+            Here we strive to give you the employee services, resources and
             support you need to experience academic success and earn your degree
             on time. Take classes online or on our campuses. Take the Virtual
             Self-Guided Tour to view to our campuses before visiting in person.

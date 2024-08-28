@@ -2,13 +2,13 @@ import React from "react";
 import axiosInstance from "../../axiosConfig";
 import { FaTrash } from "react-icons/fa";
 
-const DeleteStudent = ({ rollNo, deleteStudent }) => {
+const DeleteEmployee = ({ empNo, deleteEmployee }) => {
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/students/${rollNo}`);
-      deleteStudent(rollNo);
+      await axiosInstance.delete(`/employees/${empNo}`);
+      deleteEmployee(empNo);
     } catch (error) {
-      console.error("Error deleting student:", error);
+      console.error("Error deleting employee:", error);
     }
   };
 
@@ -19,4 +19,4 @@ const DeleteStudent = ({ rollNo, deleteStudent }) => {
   );
 };
 
-export default DeleteStudent;
+export default DeleteEmployee;
