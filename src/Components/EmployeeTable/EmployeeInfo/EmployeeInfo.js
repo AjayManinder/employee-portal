@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../../App";
-import "./studentInfo.css"; // Make sure the path to your CSS file is correct
+import "./employeeInfo.css";
 import { FiAlignRight } from "react-icons/fi";
-import StudentAdditionalInfo from "./studentAdditionalInfo"; // Make sure the path to your component is correct
+import EmployeeAdditionalInfo from "./employeeAdditionalInfo"; 
 import docx from "../../../docs/React.docx";
 import Calendar from "react-calendar";
 import axiosInstance from "../../../axiosConfig";
 import { RiEdit2Line, RiCloseLine } from "react-icons/ri";
 // import 'react-calendar/dist/Calendar.css';
-const StudentInfo = () => {
-  const [studentDetails, setStudentDetails] = useState({});
+const EmployeeInfo = () => {
+  const [employeeDetails, setEmployeeDetails] = useState({});
   const [subjects, setSubjects] = useState([]);
   const [yearSems, setYearSems] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -22,10 +22,10 @@ const StudentInfo = () => {
   const [onEditProfileImageButton, setOnEditProfileImageButton] =
     useState(false);
   useEffect(() => {
-    if (userDetails?.student) {
-      setStudentDetails(userDetails.student);
-      setSubjects(userDetails.student.subjectIds || []); // Initialize with an empty array if undefined
-      setYearSems(userDetails.student.yearSemIds || []); // Initialize with an empty array if undefined
+    if (userDetails?.employee) {
+      setEmployeeDetails(userDetails.employee);
+      setSubjects(userDetails.employee.subjectIds || []); 
+      setYearSems(userDetails.employee.yearSemIds || []); 
     }
   }, [userDetails]);
 
@@ -44,7 +44,7 @@ const StudentInfo = () => {
 
     try {
       const response = await axiosInstance.put(
-        `/students/upload-image/${studentDetails.rollNo}`,
+        `/employees/upload-image/${employeeDetails.empNo}`,
         formData,
         {
           headers: {
@@ -56,9 +56,9 @@ const StudentInfo = () => {
       // Assuming the response contains the URL of the uploaded image
       const imageUrl = response.data.imageUrl;
 
-      // Update studentDetails with the new image URL
-      setStudentDetails((prevStudentDetails) => ({
-        ...prevStudentDetails,
+      // Update employeeDetails with the new image URL
+      setEmployeeDetails((prevEmployeeDetails) => ({
+        ...prevEmployeeDetails,
         imageUrl: imageUrl,
       }));
 
@@ -85,7 +85,7 @@ const StudentInfo = () => {
   const handleDelete = async () => {
     try {
       await axiosInstance.delete(
-        `/students/delete-image/${studentDetails.rollNo}`
+        `/employees/delete-image/${employeeDetails.empNo}`
       );
       alert("Image deleted successfully");
       setOnEditProfileImageButton(false);
@@ -103,16 +103,16 @@ const StudentInfo = () => {
     setDate(newDate);
   };
 
-  const handleUnregisterSubject = async (subjectId, rollNo, fetchSubjects) => {
+  const handleUnregisterSubject = async (subjectId, empNo, fetchSubjects) => {
     try {
       // Make a DELETE request to your backend API endpoint
-      const response = await axiosInstance.delete(`/students/${rollNo}/subjects/${subjectId}`);
+      const response = await axiosInstance.delete(`/employees/${empNo}/subjects/${subjectId}`);
   
       // Check if the request was successful
       if (response.status === 200) {
         // Refresh the list of subjects after successful deletion
-        // Optionally, you can implement a more efficient way to update the list without reloading the entire page
-        fetchSubjects(); // Call the function to fetch subjects again
+        
+        fetchSubjects(); // Calls the function to fetch subjects again
       } else {
         // Handle error cases
         console.error('Failed to unregister subject:', response.statusText);
@@ -123,13 +123,13 @@ const StudentInfo = () => {
   };
 
   return (
-    <div className="student-info-container">
+    <div className="employee-info-container">
       <div className="desktop-links-button">
         <div className="button-container-desktop">
           <div>
             <img
               className="profile-image"
-              src={studentDetails.imageUrl}
+              src={employeeDetails.imageUrl}
               alt="Profile Pic"
             />
             <div className="profileImageActions">
@@ -361,12 +361,12 @@ const StudentInfo = () => {
 
       <div className="info-container">
         {activeButton === "general" && (
-          <div className="student-main-container">
+          <div className="employee-main-container">
             <div className="profile-container-mobileview">
             <div className="profile-image-mobileview">
             <img
               className="profile-image"
-              src={studentDetails.imageUrl}
+              src={employeeDetails.imageUrl}
               alt="Profile Pic"
             />
             <div className="profileImageActions">
@@ -427,81 +427,81 @@ const StudentInfo = () => {
             ""
           )}
             </div>
-            <div className="student-information-main-container">
+            <div className="employee-information-main-container">
               <div>
-                <h2>Student Information</h2>
+                <h2>Employee Information</h2>
                 <div>
-                  <div className="student-details-text-info">
+                  <div className="employee-details-text-info">
                     <span>Name:</span>
-                    <span>{studentDetails.name}</span>
+                    <span>{employeeDetails.name}</span>
                   </div>
-                  <div className="student-details-text-info">
+                  <div className="employee-details-text-info">
                     <span>Roll Number:</span>
                     <span>
-                      {studentDetails.rollNo}
-                      {/* {studentDetails.rollNo} */}
+                      {employeeDetails.empNo}
+                      {/* {employeeDetails.empNo} */}
                     </span>{" "}
                   </div>
-                  <div className="student-details-text-info">
+                  <div className="employee-details-text-info">
                     <span>Branch:</span>
-                    <span>{studentDetails.branch}</span>{" "}
+                    <span>{employeeDetails.branch}</span>{" "}
                   </div>
-                  <div className="student-details-text-info">
+                  <div className="employee-details-text-info">
                     <span>Percentage:</span>
-                    <span>{studentDetails.percentage}</span>
+                    <span>{employeeDetails.percentage}</span>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h2>Student BIO Information</h2>
+                <h2>Employee BIO Information</h2>
 
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Level:</span>
-                  <span>{studentDetails.studentBioDetails?.level}</span>
+                  <span>{employeeDetails.employeeBioDetails?.level}</span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Class:</span>
-                  <span>{studentDetails.studentBioDetails?.class}</span>
+                  <span>{employeeDetails.employeeBioDetails?.class}</span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Status:</span>
-                  <span>{studentDetails.studentBioDetails?.status}</span>
+                  <span>{employeeDetails.employeeBioDetails?.status}</span>
                 </div>
-                <div className="student-details-text-info">
-                  <span>Student Type:</span>
-                  <span>{studentDetails.studentBioDetails?.studentType}</span>
+                <div className="employee-details-text-info">
+                  <span>Employee Type:</span>
+                  <span>{employeeDetails.employeeBioDetails?.employeeType}</span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Residency:</span>
-                  <span>{studentDetails.studentBioDetails?.residency}</span>
+                  <span>{employeeDetails.employeeBioDetails?.residency}</span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Campus:</span>
-                  <span>{studentDetails.studentBioDetails?.campus}</span>
+                  <span>{employeeDetails.employeeBioDetails?.campus}</span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>First Term Attended:</span>
                   <span>
-                    {studentDetails.studentBioDetails?.firstTermAttended}
+                    {employeeDetails.employeeBioDetails?.firstTermAttended}
                   </span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Matriculated Term:</span>
                   <span>
-                    {studentDetails.studentBioDetails?.matriculatedTerm}
+                    {employeeDetails.employeeBioDetails?.matriculatedTerm}
                   </span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Last Term Attended:</span>
                   <span>
-                    {studentDetails.studentBioDetails?.lastTermAttended}
+                    {employeeDetails.employeeBioDetails?.lastTermAttended}
                   </span>
                 </div>
-                <div className="student-details-text-info">
+                <div className="employee-details-text-info">
                   <span>Leave of Absence:</span>
                   <span>
-                    {studentDetails.studentBioDetails?.leaveOfAbsence}
+                    {employeeDetails.employeeBioDetails?.leaveOfAbsence}
                   </span>
                 </div>
 
@@ -510,7 +510,7 @@ const StudentInfo = () => {
             </div>
 
             <div className="Additional-info-Container">
-              <StudentAdditionalInfo studentDetails={studentDetails} />
+              <EmployeeAdditionalInfo employeeDetails={employeeDetails} />
             </div>
 
             <Calendar
@@ -576,4 +576,4 @@ const StudentInfo = () => {
   );
 };
 
-export default StudentInfo;
+export default EmployeeInfo;

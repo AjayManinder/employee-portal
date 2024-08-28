@@ -37,16 +37,16 @@ const Header = ({ authenticated, setAuthenticated }) => {
             // Fetch details based on the user's role
             // This line extracts the roleName property from the role_id object in the response data obtained from fetching user details.
             const role = userResponse.data?.role_id?.roleName;
-            // These lines conditionally send additional requests to fetch specific details based on the user's role (student, teacher, or admin).
+            // These lines conditionally send additional requests to fetch specific details based on the user's role (employee, recruiter, or admin).
             //  The endpoint URL includes the userId parameter to fetch details related to the specific user.
             let detailsResponse;
-            if (role === "student") {
+            if (role === "employee") {
               detailsResponse = await axiosInstance.get(
-                `/students?user_id=${userId}`
+                `/employees?user_id=${userId}`
               );
-            } else if (role === "teacher") {
+            } else if (role === "recruiter") {
               detailsResponse = await axiosInstance.get(
-                `/teachers?user_id=${userId}`
+                `/recruiters?user_id=${userId}`
               );
             } else if (role === "admin") {
               detailsResponse = await axiosInstance.get(
@@ -91,8 +91,8 @@ const Header = ({ authenticated, setAuthenticated }) => {
                 // This line logs the role and name of the user to the console. It uses optional chaining (?.) to access nested properties safely.
                 console.log(
                   `role - name in header ${role} / ${
-                    userDetails?.student?.name ??
-                    userDetails?.teacher?.teacherName ??
+                    userDetails?.employee?.name ??
+                    userDetails?.recruiter?.recruiterName ??
                     `Admin - ${userDetails?.admin?.adminName}`
                   }`
                 );
@@ -187,7 +187,7 @@ const Header = ({ authenticated, setAuthenticated }) => {
               alt="Logo"
             />
           </div>
-          <div className="Main_header"> College Portal </div>
+          <div className="Main_header"> Employee Portal </div>
         </div>
         <div className="Links">
           {/* Dropdown button for mobile view */}
@@ -211,14 +211,14 @@ const Header = ({ authenticated, setAuthenticated }) => {
               {/* Links based on user role and authentication status   */}
               {authenticated && userDetails ? (
                 <>
-                  {userDetails.role_id.roleName === "student" && (
+                  {userDetails.role_id.roleName === "employee" && (
                     <>
                       <Link
                         className="Header_Links"
-                        to="/studentInfo"
+                        to="/employeeInfo"
                         onClick={handleLinkClick}
                       >
-                        Student Info
+                        Employee Info
                       </Link>
                       <Link
                         className="Header_Links"
@@ -247,7 +247,7 @@ const Header = ({ authenticated, setAuthenticated }) => {
                    </Link>
                  </>
                   )}
-                  {userDetails.role_id.roleName === "teacher" && (
+                  {userDetails.role_id.roleName === "recruiter" && (
                     
                       <Link
                         className="Header_Links"
@@ -264,10 +264,10 @@ const Header = ({ authenticated, setAuthenticated }) => {
                   <div className="Header-Userdetails">
                     <div className="Header_Links_User">
                       <strong>
-                        {userDetails.student?.name
-                          ? `Student / ${userDetails.student.name}`
-                          : userDetails.teacher?.teacherName
-                          ? `Teacher / ${userDetails.teacher.teacherName}`
+                        {userDetails.employee?.name
+                          ? `Employee / ${userDetails.employee.name}`
+                          : userDetails.recruiter?.recruiterName
+                          ? `Recruiter / ${userDetails.recruiter.recruiterName}`
                           : userDetails.admin?.adminName
                           ? `Admin / ${userDetails.admin.adminName}`
                           : "No Role"}
@@ -305,14 +305,14 @@ const Header = ({ authenticated, setAuthenticated }) => {
               </Link>
               {authenticated && userDetails && (
                 <>
-                  {userDetails.role_id.roleName === "student" && (
+                  {userDetails.role_id.roleName === "employee" && (
                     <>
                       <Link
                         className="Header_Links"
-                        to="/studentInfo"
+                        to="/employeeInfo"
                         onClick={handleLinkClick}
                       >
-                        Student Info
+                        Employee Info
                       </Link>
                       <Link
                         className="Header_Links"
@@ -342,7 +342,7 @@ const Header = ({ authenticated, setAuthenticated }) => {
                       </Link>
                     </>
                   )}
-                  {userDetails.role_id.roleName === "teacher" && (
+                  {userDetails.role_id.roleName === "recruiter" && (
                     <Link
                       className="Header_Links"
                       to="/table"
@@ -356,10 +356,10 @@ const Header = ({ authenticated, setAuthenticated }) => {
                   <div className="Header-Userdetails">
                     <div className="Header_Links_User">
                       <strong>
-                        {userDetails.student?.name
-                          ? `Student / ${userDetails.student.name}`
-                          : userDetails.teacher?.teacherName
-                          ? `Teacher / ${userDetails.teacher.teacherName}`
+                        {userDetails.employee?.name
+                          ? `Employee / ${userDetails.employee.name}`
+                          : userDetails.recruiter?.recruiterName
+                          ? `Recruiter / ${userDetails.recruiter.recruiterName}`
                           : userDetails.admin?.adminName
                           ? `Admin / ${userDetails.admin.adminName}`
                           : "No Role"}
